@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LE DUC GYM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.jpeg" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="favicon.jpeg" alt="Logo" class="nav-logo">
+                <span class="nav-title">Le Duc Gym</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Accueil</a></li>
+                <li><a href="#about" class="nav-link">À Propos</a></li>
+                <li><a href="#programs" class="nav-link">Programmes</a></li>
+                <li><a href="#pricing" class="nav-link">Tarifs</a></li>
+                <li><a href="#testimonials" class="nav-link">Témoignages</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="#contact" class="btn btn-primary">Rejoindre</a>
+            <div class="menu-toggle" aria-label="Ouvrir le menu mobile"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Image Slider -->
+    <section id="home" class="hero">
+        <div class="hero-slider">
+            <div class="slide active" style="background-image: url('image1.jpeg');"></div>
+            <div class="slide" style="background-image: url('image2.jpeg');"></div>
+            <div class="slide" style="background-image: url('image3.jpeg');"></div>
+            <div class="slide" style="background-image: url('image4.jpeg');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-badge">🏆 Leader au Burundi</span>
+            <h1>Transformez Votre Corps,<br><span class="highlight">Transformez Votre Vie</span></h1>
+            <p>Coaching personnalisé. Résultats garantis.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-primary">Commencer</a>
+                <a href="#programs" class="btn btn-outline">Découvrir</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><span class="number">100+</span><span class="label">Membres</span></div>
+                <div class="stat"><span class="number">95%</span><span class="label">Résultats</span></div>
+                <div class="stat"><span class="number">24/7</span><span class="label">Support</span></div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="slider-indicators">
+            <span class="active"></span><span></span><span></span><span></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">À Propos</span>
+                <h2>Pourquoi Choisir <span class="accent">Le Duc Gym</span>?</h2>
+                <p>Plus de 5 ans d'expertise dans la transformation physique.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="image5.jpeg" alt="Coach Le Duc">
+                    <div class="experience-badge">5+ Ans</div>
+                </div>
+                <div class="about-content">
+                    <h3>Votre Transformation Commence Ici</h3>
+                    <p>Le Duc Gym combine expertise professionnelle, nutrition adaptée et soutien constant pour des résultats durables.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Programmes personnalisés</li>
+                        <li><i class="fas fa-check-circle"></i> Suivi régulier</li>
+                        <li><i class="fas fa-check-circle"></i> Support 24/7</li>
+                    </ul>
+                    <div class="credentials">
+                        <span><i class="fas fa-certificate"></i> Certifié IFBA</span>
+                        <span><i class="fas fa-award"></i> Meilleur Coach 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="programs">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Programmes</span>
+                <h2>Solutions pour <span class="accent">Chaque Objectif</span></h2>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="icon"><i class="fas fa-fire"></i></div>
+                    <h3>Perte de Poids</h3>
+                    <p>Programme intensif cardio et HIIT.</p>
+                    <a href="#contact" class="link">En Savoir Plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="program-card featured">
+                    <span class="badge">Plus Populaire</span>
+                    <div class="icon"><i class="fas fa-dumbbell"></i></div>
+                    <h3>Prise de Masse</h3>
+                    <p>Développez votre musculature.</p>
+                    <a href="#contact" class="link">En Savoir Plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="program-card">
+                    <div class="icon"><i class="fas fa-user-tie"></i></div>
+                    <h3>Coaching Personnel</h3>
+                    <p>Un coach dédié pour résultats rapides.</p>
+                    <a href="#contact" class="link">En Savoir Plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="program-card">
+                    <div class="icon"><i class="fas fa-apple-alt"></i></div>
+                    <h3>Nutrition</h3>
+                    <p>Plans alimentaires sur mesure.</p>
+                    <a href="#contact" class="link">En Savoir Plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Témoignages</span>
+                <h2>Ce que Disent <span class="accent">Nos Clients</span></h2>
+                <p>Des transformations réelles, des résultats concrets. Découvrez les témoignages de nos membres satisfaits.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="header">
+                        <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                        <div class="info">
+                            <h4>Jean D.</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"J'ai gagné 7kg de muscle pur en seulement 3 mois grâce au programme personnalisé de Le Duc. Son approche professionnelle et ses conseils nutritionnels ont transformé ma vie. Je recommande vivement !"</p>
+                    <div class="stats">
+                        <span><i class="fas fa-weight"></i> +7kg muscle</span>
+                        <span><i class="fas fa-calendar"></i> 3 mois</span>
+                        <span><i class="fas fa-trophy"></i> Pro</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="header">
+                        <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                        <div class="info">
+                            <h4>Sarah M.</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"Le plan VIP vaut chaque centime investi. Le coaching personnalisé 24/7, les ajustements hebdomadaires et le soutien constant m'ont permis d'atteindre mes objectifs plus rapidement que prévu."</p>
+                    <div class="stats">
+                        <span><i class="fas fa-crown"></i> VIP</span>
+                        <span><i class="fas fa-clock"></i> 6 mois</span>
+                        <span><i class="fas fa-fire"></i> Intense</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="header">
+                        <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                        <div class="info">
+                            <h4>MUTUNZI F.</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"En tant que débutant complet, j'étais sceptique. Mais les résultats parlent d'eux-mêmes ! Progression constante, motivation au rendez-vous, et une transformation physique incroyable."</p>
+                    <div class="stats">
+                        <span><i class="fas fa-seedling"></i> Débutant</span>
+                        <span><i class="fas fa-chart-line"></i> +15kg</span>
+                        <span><i class="fas fa-heart"></i> Motivé</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="header">
+                        <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                        <div class="info">
+                            <h4>Marie L.</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"Après 2 ans de stagnation, Le Duc m'a aidé à franchir la barre des 80kg. Sa méthode scientifique combinée à son expérience font toute la différence. Un coach d'exception !"</p>
+                    <div class="stats">
+                        <span><i class="fas fa-dumbbell"></i> Avancé</span>
+                        <span><i class="fas fa-calendar"></i> 8 mois</span>
+                        <span><i class="fas fa-award"></i> 80kg+</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="header">
+                        <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                        <div class="info">
+                            <h4>David K.</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"Le programme de sèche m'a permis de perdre 12kg de graisse tout en gardant ma masse musculaire. Les repas préparés et le suivi quotidien ont été déterminants pour mon succès."</p>
+                    <div class="stats">
+                        <span><i class="fas fa-weight"></i> -12kg</span>
+                        <span><i class="fas fa-utensils"></i> Nutrition</span>
+                        <span><i class="fas fa-moon"></i> Sèche</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="header">
+                        <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                        <div class="info">
+                            <h4>Alice R.</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p>"Programme femme adapté à mes besoins spécifiques. J'ai gagné en force et en confiance. Le Duc comprend parfaitement les particularités féminines en musculation."</p>
+                    <div class="stats">
+                        <span><i class="fas fa-venus"></i> Femme</span>
+                        <span><i class="fas fa-dumbbell"></i> +Force</span>
+                        <span><i class="fas fa-heart"></i> Confiance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Tarifs</span>
+                <h2>Choisissez Votre <span class="accent">Plan</span></h2>
+                <p>Prix transparents. Pas de frais cachés.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="header">
+                        <div class="icon"><i class="fas fa-seedling"></i></div>
+                        <h3>Débutant</h3>
+                        <p>Pour démarrer</p>
+                    </div>
+                    <div class="price"><span class="currency">$</span><span class="amount">5</span><span class="period">/mois</span></div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Programme de base</li>
+                        <li><i class="fas fa-check"></i> Conseils nutrition</li>
+                        <li><i class="fas fa-check"></i> Soutien email</li>
+                        <li><i class="fas fa-check"></i> Accès communauté</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Commencer</a>
+                </div>
+                <div class="pricing-card popular">
+                    <span class="popular-badge">Plus Populaire</span>
+                    <div class="header">
+                        <div class="icon"><i class="fas fa-crown"></i></div>
+                        <h3>VIP</h3>
+                        <p>Résultats rapides</p>
+                    </div>
+                    <div class="price"><span class="currency">$</span><span class="amount">20</span><span class="period">/mois</span></div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Programme avancé</li>
+                        <li><i class="fas fa-check"></i> Coach dédié</li>
+                        <li><i class="fas fa-check"></i> Support 12H/6JOURS</li>
+                        <li><i class="fas fa-check"></i> Suivi progrès</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Devenir VIP</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="header">
+                        <div class="icon"><i class="fas fa-rocket"></i></div>
+                        <h3>Elite</h3>
+                        <p>Transformation complète</p>
+                    </div>
+
+                    <a href="#contact" class="btn btn-outline">Choisir Elite</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-bg" style="background-image: url('image1.jpeg');"></div>
+        <div class="cta-overlay"></div>
+        <div class="container">
+            <div class="cta-content">
+                <h2>Prêt à Commencer?</h2>
+                <p>Rejoignez ceux qui ont transformé leur vie.</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Démarrer</a>
+                    <a href="https://wa.me/25766499948" class="btn btn-outline" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Contact</span>
+                <h2>Prenez <span class="accent">Contact</span></h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="details">
+                            <h4>Localisation</h4>
+                            <p>Bujumbura, Burundi</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="details">
+                            <h4>Téléphone</h4>
+                            <p><a href="tel:+25766499948">+257 66 49 99 48</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <div class="details">
+                            <h4>Email</h4>
+                            <p><a href="mailto:ledukegym@gmail.com">ledukegym@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/duchrist_nzebo" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@duchrist.nzebo" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/25766499948" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Envoyez un Message</h3>
+                    <div class="success-message" id="contact-success" hidden></div>
+                    <form id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nom Complet</label>
+                                <input type="text" name="name" required placeholder="Votre nom">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email" required placeholder="votre@email.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Téléphone</label>
+                                <input type="tel" name="phone" required placeholder="+257 XX XXX XXX">
+                            </div>
+                            <div class="form-group">
+                                <label>Objectif</label>
+                                <select name="objective" required>
+                                    <option value="">Sélectionner...</option>
+                                    <option value="weight_loss">Perte de poids</option>
+                                    <option value="muscle_gain">Prise de masse</option>
+                                    <option value="coaching">Coaching personnel</option>
+                                    <option value="nutrition">Nutrition</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea name="message" rows="5" placeholder="Décrivez vos objectifs..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="favicon.jpeg" alt="Logo" class="footer-logo">
+                    <span>Le Duc Gym</span>
+                    <p>Votre partenaire pour une transformation physique et mentale.</p>
+                    <div class="social">
+                        <a href="https://www.instagram.com/duchrist_nzebo" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@duchrist.nzebo" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/25766499948" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Liens Rapides</h4>
+                    <ul>
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#about">À Propos</a></li>
+                        <li><a href="#programs">Programmes</a></li>
+                        <li><a href="#pricing">Tarifs</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Programmes</h4>
+                    <ul>
+                        <li><a href="#programs">Perte de Poids</a></li>
+                        <li><a href="#programs">Prise de Masse</a></li>
+                        <li><a href="#programs">Coaching</a></li>
+                        <li><a href="#programs">Nutrition</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Bujumbura, Burundi</li>
+                        <li><i class="fas fa-phone"></i> +257 66 49 99 48</li>
+                        <li><i class="fas fa-envelope"></i> ledukegym@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Le Duc Gym. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll To Top Button -->
+    <button id="scrollTop" class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script src="java.js?v=1.0"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+﻿// ===== CAROUSEL FUNCTIONALITY =====
+function setupCarousel() {
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (!carouselContainer) return;
+    
+    const images = carouselContainer.querySelectorAll('img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    
+    let currentIndex = 0;
+    let autoSlideInterval;
+
+    function showImage(index) {
+        images.forEach(img => img.classList.remove('active'));
+        images[index].classList.add('active');
+    }
+
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(function() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }, 3000);
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+    }
+
+    // Show initial image
+    showImage(currentIndex);
+    startAutoSlide();
+
+    // Navigation buttons
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+            resetAutoSlide();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+            resetAutoSlide();
+        });
+    }
+}
+
+// ===== SMOOTH SCROLLING =====
+function setupSmoothScrolling() {
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - headerHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+}
+
+// ===== CONTACT FORM =====
+function setupContactForm() {
+    const contactForm = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
+
+        formMessage.style.display = 'block';
+        formMessage.style.color = '#1e3a8a';
+        formMessage.textContent = 'Envoi en cours...';
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                formMessage.style.color = '#28a745';
+                formMessage.textContent = 'Demande envoyée avec succès! Nous vous contacterons bientôt.';
+                contactForm.reset();
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            } else {
+                formMessage.style.color = '#dc3545';
+                formMessage.textContent = 'Erreur lors de l\'envoi. Veuillez réessayer.';
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            formMessage.style.color = '#dc3545';
+            formMessage.textContent = 'Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.';
+        }
+    });
+}
+
+// ===== QUICK SIGNUP FORM =====
+function setupQuickSignupForm() {
+    const quickSignupForm = document.getElementById('quick-signup-form');
+    const quickSignupMessage = document.getElementById('quick-signup-message');
+
+    if (!quickSignupForm) {
+        console.log('Quick signup form not found');
+        return;
+    }
+
+    console.log('Quick signup form found - setting up');
+
+    quickSignupForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        console.log('Quick signup submitted');
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+        console.log('Form data:', data);
+
+        if (data.password !== data.confirm_password) {
+            quickSignupMessage.style.display = 'block';
+            quickSignupMessage.style.color = '#dc3545';
+            quickSignupMessage.textContent = 'Les mots de passe ne correspondent pas.';
+            return;
+        }
+
+        delete data.confirm_password;
+
+        quickSignupMessage.style.display = 'block';
+        quickSignupMessage.style.color = '#1e3a8a';
+        quickSignupMessage.textContent = 'Création du compte en cours...';
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const responseText = await response.text();
+            console.log('Response:', responseText, 'Status:', response.status);
+            
+            let result = {};
+            if (responseText) {
+                result = JSON.parse(responseText);
+            }
+
+            if (response.ok && result.success) {
+                quickSignupMessage.style.color = '#28a745';
+                quickSignupMessage.textContent = 'Compte créé! Vous pouvez vous connecter.';
+                quickSignupForm.reset();
+                setTimeout(() => {
+                    quickSignupMessage.style.display = 'none';
+                }, 5000);
+            } else {
+                quickSignupMessage.style.color = '#dc3545';
+                quickSignupMessage.textContent = result.error || 'Erreur lors de la création du compte.';
+                console.log('Server error:', result);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            quickSignupMessage.style.color = '#dc3545';
+            quickSignupMessage.textContent = 'Erreur: ' + error.message;
+        }
+    });
+}
+
+// ===== LOGIN MODAL =====
+function setupLoginModal() {
+    const loginBtn = document.getElementById('login-btn');
+    const loginModal = document.getElementById('login-modal');
+    const loginForm = document.getElementById('login-form');
+    const loginMessage = document.getElementById('login-message');
+
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (loginModal) loginModal.style.display = 'block';
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            if (loginMessage) {
+                loginMessage.style.display = 'block';
+                loginMessage.style.color = '#1e3a8a';
+                loginMessage.textContent = 'Connexion en cours...';
+            }
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    if (loginMessage) {
+                        loginMessage.style.color = '#28a745';
+                        loginMessage.textContent = 'Connexion réussie! Redirection...';
+                    }
+                    setTimeout(() => { window.location.href = '/admin'; }, 1000);
+                } else {
+                    if (loginMessage) {
+                        loginMessage.style.color = '#dc3545';
+                        loginMessage.textContent = result.error || 'Erreur de connexion';
+                    }
+                }
+            } catch (error) {
+                if (loginMessage) {
+                    loginMessage.style.color = '#dc3545';
+                    loginMessage.textContent = 'Erreur de connexion';
+                }
+            }
+        });
+    }
+}
+
+// ===== REGISTRATION MODAL =====
+function setupRegistrationModal() {
+    const signupLink = document.getElementById('signup-link');
+    const loginLink = document.getElementById('login-link');
+    const loginModal = document.getElementById('login-modal');
+    const registerModal = document.getElementById('register-modal');
+    const registerForm = document.getElementById('register-form');
+    const registerMessage = document.getElementById('register-message');
+
+    if (signupLink) {
+        signupLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeLoginModal();
+            if (registerModal) registerModal.style.display = 'block';
+        });
+    }
+
+    if (loginLink) {
+        loginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeRegisterModal();
+            if (loginModal) loginModal.style.display = 'block';
+        });
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            if (data.password !== data.confirm_password) {
+                if (registerMessage) {
+                    registerMessage.style.display = 'block';
+                    registerMessage.style.color = '#dc3545';
+                    registerMessage.textContent = 'Les mots de passe ne correspondent pas.';
+                }
+                return;
+            }
+
+            delete data.confirm_password;
+
+            if (registerMessage) {
+                registerMessage.style.display = 'block';
+                registerMessage.style.color = '#1e3a8a';
+                registerMessage.textContent = 'Création du compte...';
+            }
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    if (registerMessage) {
+                        registerMessage.style.color = '#28a745';
+                        registerMessage.textContent = 'Compte créé avec succès!';
+                    }
+                    setTimeout(() => {
+                        closeRegisterModal();
+                        if (loginModal) loginModal.style.display = 'block';
+                    }, 2000);
+                } else {
+                    if (registerMessage) {
+                        registerMessage.style.color = '#dc3545';
+                        registerMessage.textContent = result.error || 'Erreur.';
+                    }
+                }
+            } catch (error) {
+                if (registerMessage) {
+                    registerMessage.style.color = '#dc3545';
+                    registerMessage.textContent = 'Erreur de connexion.';
+                }
+            }
+        });
+    }
+}
+
+function closeLoginModal() {
+    const login Modal = document.getElementById('login-modal');
+    if (loginModal) {
+        loginModal.style.display = 'none';
+        const f = document.getElementById('login-form');
+        if (f) f.reset();
+    }
+}
+
+function closeRegisterModal() {
+    const registerModal = document.getElementById('register-modal');
+    if (registerModal) {
+        registerModal.style.display = 'none';
+        const f = document.getElementById('register-form');
+        if (f) f.reset();
+    }
+}
+
+function openRegisterModal() {
+    const registerModal = document.getElementById('register-modal');
+    if (registerModal) registerModal.style.display = 'block';
+}
+
+window.onclick = function(e) {
+    let loginModal = document.getElementById('login-modal');
+    let registerModal = document.getElementById('register-modal');
+    if (e.target === loginModal) closeLoginModal();
+    if (e.target === registerModal) closeRegisterModal();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing...');
+    setupCarousel();
+    setupSmoothScrolling();
+    setupContactForm();
+    setupQuickSignupForm();
+    setupLoginModal();
+    setupRegistrationModal();
+});
