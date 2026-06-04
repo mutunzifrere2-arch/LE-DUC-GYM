@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Le Duc Gym</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0f172a;
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --accent: #ff6b35;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --bg-light: #f9fafb;
+            --border-light: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 12px;
+            padding: 0.75rem;
+            box-shadow: var(--shadow-md);
+            overflow-x: auto;
+            border: 1px solid var(--border-light);
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 130px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: 1.5px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .tab:hover {
+            background: var(--bg-light);
+            border-color: var(--primary-light);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 1.25rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        tr:hover {
+            background: var(--bg-light);
+        }
+
+        .status {
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .status.active {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .status.inactive {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+
+        button, a.btn, input[type="button"], input[type="submit"] {
+            background: linear-gradient(135deg, var(--accent), #ff5722);
+            color: white;
+            padding: 0.85rem 1.75rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        button:hover, a.btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1.5px solid var(--border-light);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+        }
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background-color: #1e3a8a;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-cog"></i> Panel d'Administration - Le Duc Gym</h1>
+        <button id="logout-btn" class="btn btn-danger" style="position: absolute; top: 10px; right: 20px;">Déconnexion</button>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('contacts')">Demandes de Contact</button>
+            <button class="tab" onclick="showTab('clients')">Clients</button>
+            <button class="tab" onclick="showTab('add-client')">Ajouter Client</button>
+        </div>
+
+        <!-- Contacts Tab -->
+        <div id="contacts" class="tab-content active">
+            <h2>Demandes de Consultation</h2>
+            <table id="contacts-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Âge</th>
+                        <th>Poids</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="contacts-body">
+                    <!-- Contacts will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Clients Tab -->
+        <div id="clients" class="tab-content">
+            <h2>Gestion des Clients</h2>
+            <table id="clients-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Plan</th>
+                        <th>Statut</th>
+                        <th>Date d'inscription</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="clients-body">
+                    <!-- Clients will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add Client Tab -->
+        <div id="add-client" class="tab-content">
+            <h2>Ajouter un Nouveau Client</h2>
+            <form id="add-client-form">
+                <div class="form-group">
+                    <label for="client-name">Nom complet:</label>
+                    <input type="text" id="client-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="client-email">Email:</label>
+                    <input type="email" id="client-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="client-phone">Téléphone:</label>
+                    <input type="tel" id="client-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="client-plan">Type de plan:</label>
+                    <select id="client-plan" required>
+                        <option value="beginner">Plan Débutant</option>
+                        <option value="vip">Plan VIP</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter Client</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for viewing contact details -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Détails de la demande</h2>
+            <div id="contact-details">
+                <!-- Contact details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Load contacts
+        async function loadContacts() {
+            try {
+                const response = await fetch('/api/contacts');
+                const contacts = await response.json();
+                const tbody = document.getElementById('contacts-body');
+                tbody.innerHTML = '';
+
+                contacts.forEach(contact => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${contact.id}</td>
+                        <td>${contact.name}</td>
+                        <td>${contact.age}</td>
+                        <td>${contact.weight} kg</td>
+                        <td>${contact.email}</td>
+                        <td>${contact.phone}</td>
+                        <td>${new Date(contact.submitted_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="viewContact(${contact.id})">Voir</button>
+                            <button class="btn btn-danger" onclick="deleteContact(${contact.id})">Supprimer</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading contacts:', error);
+            }
+        }
+
+        // Load clients
+        async function loadClients() {
+            try {
+                const response = await fetch('/api/clients');
+                const clients = await response.json();
+                const tbody = document.getElementById('clients-body');
+                tbody.innerHTML = '';
+
+                clients.forEach(client => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${client.id}</td>
+                        <td>${client.name}</td>
+                        <td>${client.email}</td>
+                        <td>${client.phone}</td>
+                        <td>${client.plan_type}</td>
+                        <td><span class="status ${client.status}">${client.status}</span></td>
+                        <td>${new Date(client.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-success" onclick="toggleClientStatus(${client.id}, '${client.status}')">
+                                ${client.status === 'active' ? 'Désactiver' : 'Activer'}
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading clients:', error);
+            }
+        }
+
+        // View contact details
+        async function viewContact(id) {
+            try {
+                const response = await fetch('/api/contacts');
+                const contacts = await response.json();
+                const contact = contacts.find(c => c.id === id);
+
+                if (contact) {
+                    const details = document.getElementById('contact-details');
+                    details.innerHTML = `
+                        <p><strong>Nom:</strong> ${contact.name}</p>
+                        <p><strong>Âge:</strong> ${contact.age}</p>
+                        <p><strong>Poids:</strong> ${contact.weight} kg</p>
+                        <p><strong>Localisation:</strong> ${contact.location}</p>
+                        <p><strong>Email:</strong> ${contact.email}</p>
+                        <p><strong>Téléphone:</strong> ${contact.phone}</p>
+                        <p><strong>Message:</strong> ${contact.message}</p>
+                        <p><strong>Date:</strong> ${new Date(contact.submitted_at).toLocaleString()}</p>
+                    `;
+                    document.getElementById('contact-modal').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error viewing contact:', error);
+            }
+        }
+
+        // Delete contact
+        async function deleteContact(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette demande ?')) {
+                try {
+                    const response = await fetch(`/api/contacts/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        loadContacts();
+                    }
+                } catch (error) {
+                    console.error('Error deleting contact:', error);
+                }
+            }
+        }
+
+        // Toggle client status
+        async function toggleClientStatus(id, currentStatus) {
+            const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+
+            try {
+                const response = await fetch(`/api/clients/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                if (response.ok) {
+                    loadClients();
+                }
+            } catch (error) {
+                console.error('Error updating client status:', error);
+            }
+        }
+
+        // Add new client
+        document.getElementById('add-client-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const clientData = {
+                name: document.getElementById('client-name').value,
+                email: document.getElementById('client-email').value,
+                phone: document.getElementById('client-phone').value,
+                plan_type: document.getElementById('client-plan').value
+            };
+
+            try {
+                const response = await fetch('/api/clients', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(clientData)
+                });
+
+                if (response.ok) {
+                    alert('Client ajouté avec succès!');
+                    document.getElementById('add-client-form').reset();
+                    loadClients();
+                    showTab('clients');
+                }
+            } catch (error) {
+                console.error('Error adding client:', error);
+            }
+        });
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('contact-modal').style.display = 'none';
+        }
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadContacts();
+            loadClients();
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contact-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Authentication and logout
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Check if user is authenticated
+            try {
+                const response = await fetch('/api/check-auth');
+                if (!response.ok) {
+                    window.location.href = '/';
+                    return;
+                }
+                const authData = await response.json();
+                console.log('Authenticated as:', authData.username);
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = '/';
+                return;
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async function() {
+                    try {
+                        const response = await fetch('/api/logout', {
+                            method: 'POST'
+                        });
+                        if (response.ok) {
+                            window.location.href = '/';
+                        }
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

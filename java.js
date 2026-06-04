@@ -1,4 +1,4 @@
-// ========================================
+﻿// ========================================
 // LE DUC GYM - JavaScript Frontend
 // Pure Frontend - No Backend Required
 // Professional Version with LocalStorage
